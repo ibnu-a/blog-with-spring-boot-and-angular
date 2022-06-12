@@ -1,5 +1,6 @@
 package com.code.arsen.service;
 
+import com.code.arsen.dto.AuthenticationResponse;
 import com.code.arsen.dto.LoginRequest;
 import com.code.arsen.dto.RegisterRequest;
 import com.code.arsen.entity.User;
@@ -42,14 +43,15 @@ public class AuthService {
         return passwordEncoder.encode(password);
     }
 
-    public String login(LoginRequest loginRequest) {
+    public AuthenticationResponse login(LoginRequest loginRequest) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(),
                 loginRequest.getPassword()
         ));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String authenticationToken = jwtProvider.generateToken(authenticate);
         log.info("Success authentication manager");
-        return jwtProvider.generateToken(authenticate);
+        return new AuthenticationResponse(authenticationToken, loginRequest.getUsername());
     }
 
     public Optional<org.springframework.security.core.userdetails.User> getCurrentUser() {
