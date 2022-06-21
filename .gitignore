@@ -18,6 +18,7 @@ target/
 *.iws
 *.iml
 *.ipr
+src/main/java/com/code/arsen/security/EncryptDecrypt.java
 
 ### NetBeans ###
 /nbproject/private/

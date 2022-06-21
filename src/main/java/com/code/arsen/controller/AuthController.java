@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("api/auth")
 public class AuthController {
@@ -24,7 +23,7 @@ public class AuthController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/login")
-    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) throws Exception {
         return authService.login(loginRequest);
     }
 }
